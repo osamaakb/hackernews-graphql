@@ -18,7 +18,6 @@ function updateLink(parent, arg) {
         description: arg.description,
         url: arg.url
     }
-    console.log(links[index])
     return links[index];
 }
 
