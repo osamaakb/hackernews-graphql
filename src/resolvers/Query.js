@@ -1,8 +1,9 @@
-const { links } = require('./Link')
+function feed(parent, args, context, info) { return context.prisma.link.findMany() }
 
-function feed(parent, args, context, info) { return links }
-
-function link(parent, arg, context, info) { return links.find((link) => link.id === arg.id) }
+function link(parent, arg, context, info) {
+    const links = context.prisma.link.findMany();
+    return links.find((link) => link.id === arg.id)
+}
 
 module.exports = {
     feed,
