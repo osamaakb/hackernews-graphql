@@ -28,9 +28,17 @@ async function post(parent, args, context, info) {
 //     return links[index];
 // }
 
-// function deleteLink(parent, args, context, info) {    
-//     return context.link.prisma.delete({});
-// }
+async function deleteLink(parent, args, context, info) {
+    const userId = getUserId(context)
+    const link = await context.prisma.link.findUnique({ where: { id: +args.id } })
+
+    if (userId === link.postedById) {
+        await context.prisma.link.delete({ where: { id: +args.id } });
+        return 'link deleted';
+    } else {
+        return 'only the user posted this can delete it, please check your login informations.';
+    }
+}
 
 async function signup(parent, args, context, info) {
     const password = await bcrypt.hash(args.password, 10)
@@ -66,10 +74,9 @@ async function login(parent, args, context, info) {
 
 
 module.exports = {
-    post
-    // ,
-    // deleteLink,
+    post,
+    deleteLink,
     // updateLink
-    , login,
+    login,
     signup
 }

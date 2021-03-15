@@ -1,8 +1,9 @@
-function feed(parent, args, context, info) { return context.prisma.link.findMany() }
+async function feed(parent, args, context, info) {
+    return await context.prisma.link.findMany()
+}
 
-function link(parent, arg, context, info) {
-    const links = context.prisma.link.findMany();
-    return links.find((link) => link.id === arg.id)
+async function link(parent, args, context, info) {
+    return await context.prisma.link.findUnique({ where: { id: +args.id } })
 }
 
 module.exports = {
