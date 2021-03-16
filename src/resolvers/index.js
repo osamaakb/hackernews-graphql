@@ -5,9 +5,9 @@ const Link = require('./Link')
 const Subscription = require('./Subscription')
 
 module.exports = {
-    Query,
-    Mutation,
-    User,
-    Link,
-    Subscription
+  Query,
+  Mutation,
+  User,
+  Link,
+  Subscription
 }
