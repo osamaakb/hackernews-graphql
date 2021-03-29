@@ -1,6 +1,6 @@
 type Query {
   info: String!
-  feed: [Link!]!
+  feed(skip: Int, take: Int, orderBy: LinkOrderByInput): Feed!
   link(id: ID!): Link
 }
 
@@ -33,4 +33,18 @@ type User {
 
 type Subscription {
   newLink: Link
+}
+
+input LinkOrderByInput {
+  createdAt: Sort
+}
+
+enum Sort {
+  asc
+  desc
+}
+
+type Feed {
+  links: [Link!]!
+  count: Int!
 }
